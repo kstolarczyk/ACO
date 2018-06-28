@@ -1,0 +1,21 @@
+//
+// Created by kamil on 28.06.18.
+//
+
+#ifndef ACO_EDGE_H
+#define ACO_EDGE_H
+
+#include "config.h"
+
+class Edge {
+public:
+    double d;
+    double f;
+
+    Edge();
+
+    Edge(double d);
+};
+
+
+#endif //ACO_EDGE_H

@@ -4,6 +4,7 @@
 
 #ifndef ACO_HEADERS_H
 #define ACO_HEADERS_H
-#include <algorithm>
 #include <random>
+#include "Graph.h"
+#include "Ant.h"
 #endif //ACO_HEADERS_H

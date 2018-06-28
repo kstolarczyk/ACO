@@ -4,7 +4,6 @@
 
 #ifndef ACO_ANT_H
 #define ACO_ANT_H
-#include "headers.h"
 
 class Ant {
 protected:

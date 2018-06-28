@@ -3,4 +3,4 @@ project(ACO)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(ACO main.cpp Ant.cpp Ant.h headers.h)
+add_executable(ACO main.cpp Ant.cpp Ant.h headers.h config.h Graph.cpp Graph.h Edge.cpp Edge.h)

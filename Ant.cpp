@@ -2,6 +2,7 @@
 // Created by kamil on 26.06.18.
 //
 
+#include <algorithm>
 #include "Ant.h"
 
 Ant::Ant(int len, double **graf) {
