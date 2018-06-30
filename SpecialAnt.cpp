@@ -1,0 +1,19 @@
+//
+// Created by kamil on 30.06.18.
+//
+
+#include "SpecialAnt.h"
+
+SpecialAnt::SpecialAnt(Graph *graph1) : Ant(graph1) {
+    this->count = graph1->size * (graph1->size - 1) / 2;
+}
+
+void SpecialAnt::Run() {
+
+}
+
+void SpecialAnt::Parowanie(Edge *edges) {
+    for (auto i = 0; i < this->count; i++) {
+        edges[i].f *= PF;
+    }
+}

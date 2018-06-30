@@ -5,14 +5,20 @@
 #ifndef ACO_ANT_H
 #define ACO_ANT_H
 
+#include "Graph.h"
+#include <vector>
 class Ant {
 protected:
-    bool * visited;
-    double ** graf;
+    Graph *graph;
+    int *trace;
+    std::vector<int> neighbours;
+    double &bestDistance;
 public:
-    Ant(int len, double ** graf);
+    Ant(Graph *graph1);
     ~Ant();
     void Run();
+
+    double *Probability(int current);
 };
 
 

@@ -15,5 +15,16 @@ int main() {
     delete[] miasta;
     std::cout << g.edges[0].d << std::endl;
     std::cout << g.edgesAccess[0][1]->d << std::endl;
+    std::vector<int> test;
+    for (int i = 0; i < 10; i++) {
+        test.push_back(i);
+    }
+    int *x = &test[3];
+    std::cout << test[3] << " " << &test[3] << std::endl;
+    std::cout << *x << " " << x << std::endl;
+    test.erase(test.begin() + 1);
+    std::cout << *x << " " << x << std::endl;
+    std::cout << test[2] << " " << &test[2] << std::endl;
+    std::cout << test[3] << " " << &test[3] << std::endl;
     return 0;
 }

@@ -18,6 +18,7 @@ public:
     Edge *edges;
     Edge ***edgesAccess;
     size_t size;
+    double bestDistance;
 
     Graph(Miasto *miasta, int v);
 

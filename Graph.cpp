@@ -7,6 +7,7 @@
 
 Graph::Graph(Miasto *miasta, int v) {
     this->size = v;
+    this->bestDistance = 99999999.0;
     this->edges = new Edge[(v * (v - 1)) / 2];
     this->edgesAccess = [v] {
         Edge ***e = new Edge **[v];
