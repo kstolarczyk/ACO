@@ -12,12 +12,17 @@ protected:
     Graph *graph;
     int *trace;
     std::vector<int> neighbours;
-    double &bestDistance;
+    double *bestDistance;
 public:
     Ant(Graph *graph1);
     ~Ant();
+
+    Ant(const Ant &ant);
+
+    Ant(Ant &&ant);
     void Run();
 
+    void updateFeromons(double wspolczynnik);
     double *Probability(int current);
 };
 

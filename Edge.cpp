@@ -4,7 +4,9 @@
 
 #include "Edge.h"
 
-Edge::Edge() {}
+Edge::Edge() {
+    this->f = START_FEROMON;
+}
 
 Edge::Edge(double d) {
     this->d = d;

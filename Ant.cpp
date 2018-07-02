@@ -6,13 +6,30 @@
 #include <iostream>
 #include "Ant.h"
 
-Ant::Ant(Graph *graph1) : bestDistance(graph1->bestDistance) {
-    this->trace = new int[graph1->size + 1];
+Ant::Ant(Graph *graph1) {
+    std::cout << "Tworzenie" << std::endl;
     this->graph = graph1;
+    this->trace = new int[graph1->size + 1];
+    this->bestDistance = &graph1->bestDistance;
+    this->neighbours.reserve(graph1->size);
 }
 
-Ant::~Ant() {
+Ant::Ant(const Ant &ant) : graph(ant.graph), bestDistance(ant.bestDistance), neighbours(ant.neighbours) {
+    std::cout << "Kopiowanie" << std::endl;
+    this->trace = new int[this->graph->size + 1];
 }
+
+Ant::Ant(Ant &&ant) : bestDistance(ant.bestDistance), graph(ant.graph), trace(ant.trace), neighbours(ant.neighbours) {
+    std::cout << "Przeniesienie" << std::endl;
+    ant.graph = nullptr;
+    ant.trace = nullptr;
+    ant.bestDistance = nullptr;
+}
+Ant::~Ant() {
+    std::cout << "Niszczenie" << std::endl;
+    delete[] this->trace;
+}
+
 
 double *Ant::Probability(int current) {
     std::vector<int> &n = this->neighbours;
@@ -32,6 +49,15 @@ double *Ant::Probability(int current) {
     prob[*(n.end() - 1)] = 1.0;
 
     return prob;
+}
+
+void Ant::updateFeromons(double wspolczynnik) {
+    for (int i = 0; i < this->graph->size; i++) {
+        int x = this->trace[i], y = this->trace[i + 1];
+        double feromon = QF * wspolczynnik / pow(this->graph->edgesAccess[x][y]->d, 2);
+        this->graph->edgesAccess[x][y]->f += feromon;
+        this->graph->edgesAccess[x][y]->f += feromon;
+    }
 }
 
 void Ant::Run() {
@@ -60,13 +86,19 @@ void Ant::Run() {
             this->neighbours.erase(std::find(this->neighbours.begin(), this->neighbours.end(), s));
             delete[] p;
         }
-        if (distance < this->graph->bestDistance) {
+        this->trace[index++] = start;
+        distance += this->graph->edgesAccess[s][start]->d;
+        if (distance < *this->bestDistance) {
             std::cout << "Dystans: " << distance << std::endl;
             std::cout << "Trasa: ";
-            for (int i = 0; i < this->graph->size; i++) {
+            for (int i = 0; i < len + 1; i++) {
                 std::cout << this->trace[i] << " ";
             }
             std::cout << std::endl;
+            *this->bestDistance = distance;
         }
+
+        double wspolczynnik = this->graph->bestDistance / distance;
+        this->updateFeromons(wspolczynnik);
     }
 }

@@ -9,15 +9,14 @@
 #include "Ant.h"
 #include "Edge.h"
 
-class SpecialAnt : protected Ant {
+class SpecialAnt : public Ant {
 protected:
     int count;
 public:
     SpecialAnt(Graph *graph1);
 
+    void updateFeromons(double wspolczynnik);
     void Parowanie(Edge *edges);
-
-    void Run();
 };
 
 

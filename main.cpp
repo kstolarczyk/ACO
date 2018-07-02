@@ -1,30 +1,47 @@
 #include <iostream>
+#include <thread>
 #include "headers.h"
+#include "SpecialAnt.h"
+
+void wykonaj(Ant *ant) {
+    ant->Run();
+}
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
+    srand(time(NULL));
     Miasto *miasta = new Miasto[6]{
-            {.x = 1, .y = 3},
-            {.x = 3, .y = 4},
+            {.x = 10, .y = 3},
+            {.x = 15, .y = 5},
+            {.x = 7, .y = 9},
+            {.x = 8, .y = 13},
             {.x = 2, .y = 1},
-            {.x = 4, .y = 0},
-            {.x = 0, .y = 4},
-            {.x = 2, .y = 2}
+            {.x = 4, .y = 8}
     };
     Graph g(miasta, 6);
     delete[] miasta;
-    std::cout << g.edges[0].d << std::endl;
-    std::cout << g.edgesAccess[0][1]->d << std::endl;
-    std::vector<int> test;
-    for (int i = 0; i < 10; i++) {
-        test.push_back(i);
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 6; j++) {
+            if (i != j) {
+                std::cout << g.edgesAccess[i][j]->d << "\t\t";
+            } else {
+                std::cout << "---" << "\t\t";
+            }
+        }
+        std::cout << std::endl;
     }
-    int *x = &test[3];
-    std::cout << test[3] << " " << &test[3] << std::endl;
-    std::cout << *x << " " << x << std::endl;
-    test.erase(test.begin() + 1);
-    std::cout << *x << " " << x << std::endl;
-    std::cout << test[2] << " " << &test[2] << std::endl;
-    std::cout << test[3] << " " << &test[3] << std::endl;
+
+    std::vector<Ant> ants;
+    ants.reserve(5);
+    std::thread threads[6];
+
+    for (int i = 0; i < 5; i++) {
+        ants.emplace_back(&g);
+    }
+    for (int i = 0; i < 5; i++) {
+        threads[i] = std::thread(wykonaj, &ants[i]);
+    }
+    threads[5] = std::thread(wykonaj, new SpecialAnt(&g));
+    for (auto &th : threads) th.join();
     return 0;
 }
