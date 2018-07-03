@@ -1,7 +1,8 @@
-#IFNDEF INSTANCES_H
-#DEFINDE INSTANCES_H
+#ifndef ACO_INSTANCES_H
+#define ACO_INSTANCES_H
 #include <string>
 #include <vector>
 #include <regex>
 #include <fstream>
-#ENDIF
+
+#endif // ACO_INSTANCES_H
