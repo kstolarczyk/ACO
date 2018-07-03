@@ -7,7 +7,6 @@
 
 #include <cstdio>
 #include "Edge.h"
-#include <mutex>
 struct Miasto {
     int x;
     int y;
