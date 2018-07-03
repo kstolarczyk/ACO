@@ -19,7 +19,6 @@ public:
     Edge ***edgesAccess;
     size_t size;
     double bestDistance;
-    std::mutex mtx;
     Graph(Miasto *miasta, int v);
     ~Graph();
 };
