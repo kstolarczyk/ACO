@@ -6,7 +6,7 @@
 #define ACO_EDGE_H
 
 #include "config.h"
-
+#include <mutex>
 class Edge {
 public:
     double d;
