@@ -11,9 +11,8 @@ class Edge {
 public:
     double d;
     double f;
-
+    std::mutex mtx;
     Edge();
-
     Edge(double d);
 };
 
