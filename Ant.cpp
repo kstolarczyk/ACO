@@ -55,8 +55,12 @@ void Ant::updateFeromons(double wspolczynnik) {
     for (int i = 0; i < this->graph->size; i++) {
         int x = this->trace[i], y = this->trace[i + 1];
         double feromon = QF * wspolczynnik / pow(this->graph->edgesAccess[x][y]->d, 2);
+        this->graph->edgesAccess[x][y]->mtx.lock();
         this->graph->edgesAccess[x][y]->f += feromon;
+        this->graph->edgesAccess[x][y]->mtx.unlock();
+        this->graph->edgesAccess[y][x]->mtx.lock();
         this->graph->edgesAccess[y][x]->f += feromon;
+        this->graph->edgesAccess[y][x]->mtx.unlock();
     }
 }
 
