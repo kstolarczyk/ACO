@@ -4,12 +4,12 @@ std::vector<std::string> Split(const std::string &str, const std::regex & reg) {
   return {std::sregex_token_iterator(str.begin(), str.end(), reg, -1), std::sregex_token_iterator()};
 }
 
-Miasto * miasta(const char & fileName) {
+Miasto *wczytajMiasta(const std::string &fileName, int &len) {
   std::fstream file(fileName, std::ios::in);
   std::string tmp;
   std::getline(file, tmp);
   std::regex reg("[^\\d]+");
-  int len = atoi(std::regex_replace(tmp, reg, "").c_str());
+  len = atoi(std::regex_replace(tmp, reg, "").c_str());
   Miasto * miasta = new Miasto[len];
   for(int i = 0; i < len; i++) {
     std::getline(file, tmp);

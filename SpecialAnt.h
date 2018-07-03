@@ -15,7 +15,7 @@ protected:
 public:
     SpecialAnt(Graph *graph1);
 
-    void updateFeromons(double wspolczynnik);
+    void updateFeromons(double wspolczynnik) override;
     void Parowanie(Edge *edges);
 };
 

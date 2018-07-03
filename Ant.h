@@ -20,9 +20,10 @@ public:
     Ant(const Ant &ant);
 
     Ant(Ant &&ant);
-    void Run();
 
-    void updateFeromons(double wspolczynnik);
+    virtual void Run();
+
+    virtual void updateFeromons(double wspolczynnik);
     double *Probability(int current);
 };
 

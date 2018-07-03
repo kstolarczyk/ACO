@@ -12,6 +12,7 @@ void SpecialAnt::updateFeromons(double wspolczynnik) {
     Ant::updateFeromons(wspolczynnik);
     this->Parowanie(this->graph->edges);
 }
+
 void SpecialAnt::Parowanie(Edge *edges) {
     for (auto i = 0; i < this->count; i++) {
         edges[i].mtx.lock();

@@ -37,7 +37,7 @@ double *Ant::Probability(int current) {
     double sum = 0.0;
     double *prob = new double[this->graph->size];
     for (auto const &value : n) {
-        prob[value] = pow(e[current][value]->f, ALPHA) * pow(e[current][value]->d, BETA);
+        prob[value] = pow(e[current][value]->f, ALPHA) * pow(1.0 / e[current][value]->d, BETA);
         sum += prob[value];
     }
     prob[*n.begin()] /= sum;
@@ -57,8 +57,6 @@ void Ant::updateFeromons(double wspolczynnik) {
         double feromon = QF * wspolczynnik / pow(this->graph->edgesAccess[x][y]->d, 2);
         this->graph->edgesAccess[x][y]->mtx.lock();
         this->graph->edgesAccess[x][y]->f += feromon;
-        this->graph->edgesAccess[x][y]->mtx.unlock();
-        this->graph->edgesAccess[y][x]->mtx.lock();
         this->graph->edgesAccess[y][x]->f += feromon;
         this->graph->edgesAccess[y][x]->mtx.unlock();
     }
