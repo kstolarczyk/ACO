@@ -2,7 +2,7 @@
 #define ACO_INSTANCES_H
 #include <regex>
 #include <fstream>
-#include "Graph.h"
+#include "SpecialAnt.h"
 
 std::vector<std::string> Split(const std::string &str, const std::regex &reg);
 
