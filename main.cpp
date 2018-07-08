@@ -1,8 +1,5 @@
-#include <iostream>
 #include <thread>
 #include "headers.h"
-#include "SpecialAnt.h"
-#include "instances.h"
 
 void wykonaj(Ant *ant) {
     ant->Run();
@@ -16,7 +13,7 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
     srand(time(NULL));
     int size = 0;
-    Miasto *m = wczytajMiasta("tsp500.txt", size);
+    Miasto *m = wczytajMiasta(F_NAME, size);
     Graph g(m, size);
     delete[] m;
     for (int i = 0; i < size; i++) {
