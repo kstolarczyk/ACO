@@ -5,7 +5,7 @@
 #ifndef ACO_GRAPH_H
 #define ACO_GRAPH_H
 
-#include <cstdio>
+#include <cmath>
 #include "Edge.h"
 struct Miasto {
     int x;
