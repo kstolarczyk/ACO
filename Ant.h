@@ -6,6 +6,9 @@
 #define ACO_ANT_H
 
 #include "Graph.h"
+#include <algorithm>
+#include <random>
+#include <iostream>
 #include <vector>
 class Ant {
 protected:
