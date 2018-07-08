@@ -2,7 +2,6 @@
 // Created by kamil on 28.06.18.
 //
 
-#include <cmath>
 #include "Graph.h"
 
 Graph::Graph(Miasto *miasta, int v) {
