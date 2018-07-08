@@ -1,9 +1,7 @@
 //
 // Created by kamil on 26.06.18.
 //
-#include <algorithm>
-#include <random>
-#include <iostream>
+
 #include "Ant.h"
 
 Ant::Ant(Graph *graph1) {
