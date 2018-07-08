@@ -7,7 +7,6 @@
 
 
 #include "Ant.h"
-#include "Edge.h"
 
 class SpecialAnt : public Ant {
 protected:
