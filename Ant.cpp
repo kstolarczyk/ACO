@@ -75,13 +75,29 @@ void Ant::Run() {
         while (!this->neighbours.empty()) {
             double *p = this->Probability(s);
             double r = (double) std::rand() / RAND_MAX;
-            for (auto const &vertic : this->neighbours) {
+            int left = 0, k;
+			int right = this->neighbours.size();
+			while (true) {
+				k = (left + right) / 2;
+				if (r <= p[this->neighbours[k]])
+				{
+					if (k == left) break;
+					right = k;
+				}
+				else
+				{
+					if (k == left) { k = right; break; }
+					left = k;
+				}
+			}
+			s = k;
+            /*for (auto const &vertic : this->neighbours) {
                 if (r < p[vertic]) {
                     distance += this->graph->edgesAccess[s][vertic]->d;
                     s = vertic;
                     break;
                 }
-            }
+            }*/
             this->trace[index++] = s;
             this->neighbours.erase(std::find(this->neighbours.begin(), this->neighbours.end(), s));
             delete[] p;
