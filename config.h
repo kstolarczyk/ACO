@@ -11,5 +11,5 @@ const double BETA = 5.0; // parametr istotnoEci odległości
 const double QF = 100.0; // wartości feromonów pozostawiana po przebyciu trasy przez mrówki
 const double PF = 0.5; // prędkość parowania feromonów
 const int ANT_COUNT = 49;
-const std::string F_NAME = "tsp1000.txt";
+const std::string F_NAME = "berlin52.txt";
 #endif //ACO_CONFIG_H
