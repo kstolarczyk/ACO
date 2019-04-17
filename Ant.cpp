@@ -55,7 +55,6 @@ void Ant::updateFeromons(double wspolczynnik) {
         double feromon = QF * wspolczynnik / pow(this->graph->edgesAccess[x][y]->d, 2);
         this->graph->edgesAccess[x][y]->mtx.lock();
         this->graph->edgesAccess[x][y]->f += feromon;
-        this->graph->edgesAccess[y][x]->f += feromon;
         this->graph->edgesAccess[y][x]->mtx.unlock();
     }
 }
@@ -90,7 +89,10 @@ void Ant::Run() {
 					left = k;
 				}
 			}
-			s = k;
+	
+			distance += this->graph->edgesAccess[s][this->neighbours[k]]->d;
+			
+			s = this->neighbours[k];
             /*for (auto const &vertic : this->neighbours) {
                 if (r < p[vertic]) {
                     distance += this->graph->edgesAccess[s][vertic]->d;
@@ -99,18 +101,19 @@ void Ant::Run() {
                 }
             }*/
             this->trace[index++] = s;
-            this->neighbours.erase(std::find(this->neighbours.begin(), this->neighbours.end(), s));
+            this->neighbours.erase(this->neighbours.begin()+k);
             delete[] p;
         }
         this->trace[index++] = start;
         distance += this->graph->edgesAccess[s][start]->d;
         if (distance < *this->bestDistance) {
             std::cout << "Dystans: " << distance << std::endl;
-            std::cout << "Trasa: ";
+         /*   std::cout << "Trasa: ";
             for (int i = 0; i < len + 1; i++) {
                 std::cout << this->trace[i] << " ";
             }
             std::cout << std::endl;
+            */
             *this->bestDistance = distance;
         }
 
