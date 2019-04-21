@@ -90,28 +90,26 @@ void Ant::Run() {
 					left = k;
 				}
 			}
-			s = k;
-            /*for (auto const &vertic : this->neighbours) {
-                if (r < p[vertic]) {
-                    distance += this->graph->edgesAccess[s][vertic]->d;
-                    s = vertic;
-                    break;
-                }
-            }*/
-            this->trace[index++] = s;
-            this->neighbours.erase(std::find(this->neighbours.begin(), this->neighbours.end(), s));
-            delete[] p;
+			distance += this->graph->edgesAccess[s][this->neighbours[k]]->d;
+			s = this->neighbours[k];
+			this->trace[index++] = s;
+			this->neighbours.erase(this->neighbours.begin() + k);
+			delete[] p;
+
         }
         this->trace[index++] = start;
         distance += this->graph->edgesAccess[s][start]->d;
         if (distance < *this->bestDistance) {
-            std::cout << "Dystans: " << distance << std::endl;
-            std::cout << "Trasa: ";
-            for (int i = 0; i < len + 1; i++) {
-                std::cout << this->trace[i] << " ";
-            }
-            std::cout << std::endl;
-            *this->bestDistance = distance;
+            //std::cout << "Trasa: ";
+            //for (int i = 0; i < len + 1; i++) {
+            //    std::cout << this->trace[i] << " ";
+            //}
+            //std::cout << std::endl;
+			this->graph->mtx.lock();
+			if (distance < *this->bestDistance) {
+				*this->bestDistance = distance;
+			}
+			this->graph->mtx.unlock();
         }
 
         double wspolczynnik = this->graph->bestDistance / distance;
