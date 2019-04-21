@@ -1,6 +1,8 @@
 #include <thread>
 #include "headers.h"
+#include <chrono>
 
+#define MAX_TIMEOUT 6
 void wykonaj(Ant *ant) {
     ant->Run();
 }
@@ -9,14 +11,14 @@ void wykonaj2(SpecialAnt *ant) {
     ant->Run();
 }
 
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
     srand(time(NULL));
     int size = 0;
     Miasto *m = wczytajMiasta(F_NAME, size);
     Graph g(m, size);
     delete[] m;
-    for (int i = 0; i < size; i++) {
+    /*for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             if (i != j) {
                 std::cout << g.edgesAccess[i][j]->d << "\t\t";
@@ -26,7 +28,7 @@ int main() {
         }
         std::cout << std::endl;
     }
-
+*/
     std::vector<Ant> ants;
     ants.reserve(ANT_COUNT);
     std::thread threads[ANT_COUNT + 1];
@@ -38,6 +40,13 @@ int main() {
         threads[i] = std::thread(wykonaj, &ants[i]);
     }
     threads[ANT_COUNT] = std::thread(wykonaj2, new SpecialAnt(&g));
-    for (auto &th : threads) th.join();
+	
+	for (int i = 0; i < MAX_TIMEOUT; i++) {
+		std::cout << "Dystans: " << g.bestDistance << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+	}
+
+	for (auto &th : threads) th.~thread();
+	std::cout << "Koniec" << std::endl;
     return 0;
 }

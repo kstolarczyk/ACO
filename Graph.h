@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include "Edge.h"
+#include <mutex>
 struct Miasto {
     int x;
     int y;
@@ -17,6 +18,7 @@ public:
     Edge *edges;
     Edge ***edgesAccess;
     size_t size;
+	std::mutex mtx;
     double bestDistance;
     Graph(Miasto *miasta, int v);
     ~Graph();

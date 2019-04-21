@@ -3,7 +3,7 @@
 //
 
 #include "Ant.h"
-
+#include <sstream>
 Ant::Ant(Graph *graph1) {
     std::cout << "Tworzenie" << std::endl;
     this->graph = graph1;
@@ -93,31 +93,26 @@ void Ant::Run() {
 			distance += this->graph->edgesAccess[s][this->neighbours[k]]->d;
 			
 			s = this->neighbours[k];
-            /*for (auto const &vertic : this->neighbours) {
-                if (r < p[vertic]) {
-                    distance += this->graph->edgesAccess[s][vertic]->d;
-                    s = vertic;
-                    break;
-                }
-            }*/
             this->trace[index++] = s;
             this->neighbours.erase(this->neighbours.begin()+k);
             delete[] p;
         }
         this->trace[index++] = start;
         distance += this->graph->edgesAccess[s][start]->d;
+
         if (distance < *this->bestDistance) {
-            std::cout << "Dystans: " << distance << std::endl;
          /*   std::cout << "Trasa: ";
             for (int i = 0; i < len + 1; i++) {
                 std::cout << this->trace[i] << " ";
             }
             std::cout << std::endl;
             */
-            *this->bestDistance = distance;
+			this->graph->mtx.lock();
+			*this->bestDistance = (distance < *this->bestDistance) ? distance : *this->bestDistance;
+			this->graph->mtx.unlock();
         }
 
-        double wspolczynnik = this->graph->bestDistance / distance;
+		double wspolczynnik = this->graph->bestDistance / distance;
         this->updateFeromons(wspolczynnik);
     }
 }

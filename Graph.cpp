@@ -3,7 +3,6 @@
 //
 
 #include "Graph.h"
-
 Graph::Graph(Miasto *miasta, int v) {
     this->size = v;
     this->bestDistance = 99999999.0;
