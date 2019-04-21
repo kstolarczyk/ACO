@@ -3,7 +3,7 @@
 //
 
 #include "Ant.h"
-#include <sstream>
+
 Ant::Ant(Graph *graph1) {
     std::cout << "Tworzenie" << std::endl;
     this->graph = graph1;
@@ -55,6 +55,7 @@ void Ant::updateFeromons(double wspolczynnik) {
         double feromon = QF * wspolczynnik / pow(this->graph->edgesAccess[x][y]->d, 2);
         this->graph->edgesAccess[x][y]->mtx.lock();
         this->graph->edgesAccess[x][y]->f += feromon;
+        this->graph->edgesAccess[y][x]->f += feromon;
         this->graph->edgesAccess[y][x]->mtx.unlock();
     }
 }
@@ -89,30 +90,31 @@ void Ant::Run() {
 					left = k;
 				}
 			}
-	
-			distance += this->graph->edgesAccess[s][this->neighbours[k]]->d;
-			
-			s = this->neighbours[k];
+			s = k;
+            /*for (auto const &vertic : this->neighbours) {
+                if (r < p[vertic]) {
+                    distance += this->graph->edgesAccess[s][vertic]->d;
+                    s = vertic;
+                    break;
+                }
+            }*/
             this->trace[index++] = s;
-            this->neighbours.erase(this->neighbours.begin()+k);
+            this->neighbours.erase(std::find(this->neighbours.begin(), this->neighbours.end(), s));
             delete[] p;
         }
         this->trace[index++] = start;
         distance += this->graph->edgesAccess[s][start]->d;
-
         if (distance < *this->bestDistance) {
-         /*   std::cout << "Trasa: ";
+            std::cout << "Dystans: " << distance << std::endl;
+            std::cout << "Trasa: ";
             for (int i = 0; i < len + 1; i++) {
                 std::cout << this->trace[i] << " ";
             }
             std::cout << std::endl;
-            */
-			this->graph->mtx.lock();
-			*this->bestDistance = (distance < *this->bestDistance) ? distance : *this->bestDistance;
-			this->graph->mtx.unlock();
+            *this->bestDistance = distance;
         }
 
-		double wspolczynnik = this->graph->bestDistance / distance;
+        double wspolczynnik = this->graph->bestDistance / distance;
         this->updateFeromons(wspolczynnik);
     }
 }
