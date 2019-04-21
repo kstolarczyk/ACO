@@ -2,7 +2,7 @@
 #include "headers.h"
 #include <chrono>
 
-#define MAX_TIMEOUT 6
+#define MAX_TIMEOUT 60
 void wykonaj(Ant *ant) {
     ant->Run();
 }
@@ -40,10 +40,12 @@ int main() {
         threads[i] = std::thread(wykonaj, &ants[i]);
     }
     threads[ANT_COUNT] = std::thread(wykonaj2, new SpecialAnt(&g));
-	
+	double d = DBL_MAX;
 	for (int i = 0; i < MAX_TIMEOUT; i++) {
-		std::cout << "Dystans: " << g.bestDistance << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+		if (g.bestDistance < d) {
+			std::cout << "Dystans: " << g.bestDistance << std::endl;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	}
 
 	for (auto &th : threads) th.~thread();
