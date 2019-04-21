@@ -1,11 +1,8 @@
 ﻿################################################################################
 # Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
 ################################################################################
-
-/x64
 /ACO.sln
 /ACO.vcxproj
 /ACO.vcxproj.filters
 /ACO.vcxproj.user
-./
-.vs/*
+/.vs/ACO/v15/Browse.VC.opendb
